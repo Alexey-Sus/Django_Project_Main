@@ -2,7 +2,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(
-        max_length=80, verbose_name="Товар", help_text="Введите название категории"
+        max_length=80, verbose_name="Название категории", help_text="Введите название категории"
     )
     description = models.CharField(
         max_length=150,
@@ -18,7 +18,6 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Product(models.Model):
     name = models.CharField(
@@ -39,6 +38,7 @@ class Product(models.Model):
     )
     category = models.ForeignKey(to=Category, on_delete=models.SET_NULL,
         max_length=50, verbose_name="Категория", help_text="Укажите категорию товара", related_name='products', null=True,
+                                 blank=True
     )
     purchase_price = models.FloatField(
         verbose_name="Цена товара", help_text="Введите цену товара товара"

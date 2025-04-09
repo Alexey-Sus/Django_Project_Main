@@ -1,0 +1,106 @@
+[
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "Кофе в пакетах",
+        "description": "Натуральная бразильская арабика, прессованная, в пакете",
+        "image": "",
+        "category": null,
+        "purchase_price": 850.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "Кефир в пакете 0,5 л.",
+        "description": "Кефир \"Моя деревня\"",
+        "image": "",
+        "category": 1,
+        "purchase_price": 75.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "name": "Молоко свежее в пластиковой бутылке 1 л.",
+        "description": "Молоко свежее, утреннего надоя. Завозится раз в день; срок хранения в холодильнике - сутки.",
+        "image": "",
+        "category": 1,
+        "purchase_price": 100.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "name": "Ряженка в пакете 0,5 л.",
+        "description": "Ряженка в полиэтиленовом пакете, 1 л. Вкус стандартный",
+        "image": "",
+        "category": 1,
+        "purchase_price": 85.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 5,
+    "fields": {
+        "name": "Швабра половая, с автоотжимом",
+        "description": "Швабра с отжимом в два действия, размер 150х450 мм.",
+        "image": "",
+        "category": 3,
+        "purchase_price": 1200.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 6,
+    "fields": {
+        "name": "Губки поролоновые 5 шт.",
+        "description": "Губки поролоновые в упаковке по 5 шт.",
+        "image": "",
+        "category": 3,
+        "purchase_price": 50.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 8,
+    "fields": {
+        "name": "Свекла",
+        "description": "Свекла свежая и сладкая",
+        "image": "",
+        "category": null,
+        "purchase_price": 88.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 9,
+    "fields": {
+        "name": "Морковь мытая",
+        "description": "Морковь мытая, натертая и красивая",
+        "image": "",
+        "category": null,
+        "purchase_price": 75.0,
+        "created_at": "2025-04-09",
+        "updated_at": "2025-04-09"
+    }
+}
+]

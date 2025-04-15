@@ -32,7 +32,7 @@ class Command(BaseCommand):
             },
             {
                 "name": "Тетрадь в клеточку 18 л.",
-                "description": "Тетрадь в кл. 18 л. зеленая",
+                "description": "Тетрадь в кл. 18 л., обложка зеленая",
                 "category": category,
                 "purchase_price": 30.0,
             },

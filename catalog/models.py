@@ -53,6 +53,9 @@ class Product(models.Model):
         help_text="Укажите дату создания товара",
     )
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name = "Товар"
         verbose_name_plural = "Товары"

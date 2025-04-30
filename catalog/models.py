@@ -21,12 +21,11 @@ class Category(models.Model):
 
 class Product(models.Model):
     name = models.CharField(
-        max_length=80, verbose_name="Товар", help_text="Введите название товара"
+        max_length=80, verbose_name="Продукт"
     )
     description = models.CharField(
         max_length=150,
-        verbose_name="Описание товара",
-        help_text="Введите описание товара",
+        verbose_name="Описание",
         blank=True,
         null=True,
     )
@@ -34,14 +33,13 @@ class Product(models.Model):
         upload_to="catalog/photos",
         blank=True,
         null=True,
-        help_text="Загрузите фото товара",
     )
     category = models.ForeignKey(to=Category, on_delete=models.SET_NULL,
-        max_length=50, verbose_name="Категория", help_text="Укажите категорию товара", related_name='products', null=True,
+        max_length=50, verbose_name="Категория продукта", related_name='products', null=True,
                                  blank=True
     )
     purchase_price = models.FloatField(
-        verbose_name="Цена товара", help_text="Введите цену товара товара"
+        verbose_name="Цена"
     )
     created_at = models.DateField(
         auto_now=True,
@@ -50,7 +48,7 @@ class Product(models.Model):
     updated_at = models.DateField(
         auto_now=True,
         verbose_name="Дата изменения",
-        help_text="Укажите дату создания товара",
+        help_text="Укажите дату создания товара"
     )
 
     def __str__(self):

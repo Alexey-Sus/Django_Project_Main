@@ -128,7 +128,6 @@ dmypy.json
 cython_debug/
 
 .idea/
-/README.md
 /src/bootstrap_homework.py
 /css/page4.html
 /css/page3.html

@@ -205,10 +205,6 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Магазин "Всё для всего"</h1>
         <p class="lead text-body-secondary">Карточка товара с описанием</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Основная кнопка</a>
-          <a href="#" class="btn btn-secondary my-2">Дополнительная кнопка</a>
-        </p>
       </div>
     </div>
   </section>
@@ -225,10 +221,13 @@
               <p>Информация о товаре</p>
               <h2>{{ product.name }}</h2>
               <p class="card-text">{{ product.description }}</p>
+              <p class="card-text">Цена: {{ product.purchase_price }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Показать</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
+
+                  <a class="btn btn-primary" href="{% url 'catalog:main' %}" role="button">К списку товаров</a>
+                  <a class="btn btn-secondary" href="{% url 'catalog:product_update' product.pk %}" role="button">Редактировать</a>
+                  <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                 </div>
               </div>
             </div>

@@ -171,15 +171,15 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-md-7 py-4">
-          <h4>About</h4>
-          <p class="text-body-secondary">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+          <h4>О нашей компании</h4>
+          <p class="text-body-secondary">Наша компания "Всё для всего" делает всё для всего, и даже то, что делать не нужно.</p>
         </div>
         <div class="col-sm-4 offset-md-1 py-4">
           <h4>Contact</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Follow on X</a></li>
-            <li><a href="#" class="text-white">Like on Facebook</a></li>
-            <li><a href="#" class="text-white">Email me</a></li>
+            <li><a href="#" class="text-white">Подписаться на нас в Х</a></li>
+            <li><a href="#" class="text-white">...и в Facebook тоже</a></li>
+            <li><a href="#" class="text-white">...и написать email до кучи</a></li>
           </ul>
         </div>
       </div>
@@ -189,7 +189,7 @@
     <div class="container">
       <a href="#" class="navbar-brand d-flex align-items-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="me-2" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-        <strong>Album</strong>
+        <strong>Магазин</strong>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -205,10 +205,7 @@
       <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-light">Магазин "Всё для всего"</h1>
         <p class="lead text-body-secondary">Здесь есть всё для всего и даже больше.</p>
-        <p>
-          <a href="#" class="btn btn-primary my-2">Основная кнопка</a>
-          <a href="#" class="btn btn-secondary my-2">Дополнительная кнопка</a>
-        </p>
+        <a class="btn btn-secondary" href="{% url 'catalog:prod_det_from_base_create' %}" role="button">Создать новый продукт</a>
       </div>
     </div>
   </section>
@@ -225,8 +222,10 @@
               <p class="card-text">{{ product.description|truncatechars:100 }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Показать</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
+
+                  <a class="btn btn-primary" href="{% url 'catalog:product_details' product.pk %}" role="button">Показать</a>
+                  <a class="btn btn-secondary" href="{% url 'catalog:product_update' product.pk %}" role="button">Редактировать</a>
+                  <a class="btn btn-danger" href="{% url 'catalog:product_delete' product.pk %}" role="button">Удалить</a>
                 </div>
               </div>
             </div>

@@ -8,6 +8,9 @@ from catalog.views import (ContactDetailsTemplateView, HomeTemplateView, Product
 
 app_name = NewappConfig.name
 
+app_name = 'catalog'
+
+
 urlpatterns = [
     path('contacts/', ContactDetailsTemplateView.as_view(), name='contact_details'),
     path('home/', HomeTemplateView.as_view(), name='home'),

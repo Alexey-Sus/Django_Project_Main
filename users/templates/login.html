@@ -1,0 +1,20 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<div class="col">
+  <form action="{% url 'users:login' %}" class="row" method="post" enctype="multipart/form-data">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <p>Вход в систему</p>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-sm btn-primary">Войти</button>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

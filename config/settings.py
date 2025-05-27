@@ -137,3 +137,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'catalog:main'
 LOGOUT_REDIRECT_URL = 'catalog:main'
+
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "asuspitsyn@mail.ru"
+EMAIL_HOST_PASSWORD = "AhObsZtKnV74ljHgTCNT"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+

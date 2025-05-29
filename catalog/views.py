@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import DetailView, TemplateView, ListView, UpdateView, DeleteView, CreateView
 from catalog.models import Product
@@ -17,18 +18,20 @@ class ContactDetailsTemplateView(TemplateView):
     template_name = 'contact_details.html'
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'product_details.html'
 
 
-class ProdDetFromBaseDetailView(DetailView):
+class ProdDetFromBaseDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'prod_det_from_base.html'
 
 #контроллер почти тот же самый, то есть, ProdDetFromBaseCreateView, с использованием формы, для создания
 # продукта:
-class ProdDetFromBaseCreateView(CreateView):
+
+# class ProdDetFromBaseCreateView(CreateView):
+class ProdDetFromBaseCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'prod_det_from_base_create.html'
@@ -40,7 +43,9 @@ class ProdDetFromBaseCreateView(CreateView):
         return kwargs
 
 #пишем контроллер для обновления информации по продукту
-class ProductUpdateView(UpdateView):
+# class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
+
     model = Product
     form_class = ProductForm
     template_name = 'product_update.html' #сделать новый шаблон для редактирования продукта
@@ -51,27 +56,23 @@ class ProductUpdateView(UpdateView):
         kwargs['stop_words'] = stop_words  # передаем список stop_words в форму
         return kwargs
 
-#пишу контроллер для удаления продукта
-# class ProductDeleteView(DeleteView):
-#     model = Product
-#     form_class = ProductForm
-#     template_name = 'product_delete.html'  # сделать новый шаблон для удаления продукта
-#     success_url = reverse_lazy('catalog:main')
 
-class ProductDeleteView(DeleteView):
+# class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
     form_class = ProductFormDelete
     template_name = 'product_delete.html'  # сделать новый шаблон для удаления продукта
     success_url = reverse_lazy('catalog:main')
 
 
-class ProductListView(ListView):
+# class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'main.html'
     context_object_name = 'products'
 
 
-class UpperMenuListView(ListView):
+class UpperMenuListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'upper_menu_subtempl.html'
     context_object_name = 'products'

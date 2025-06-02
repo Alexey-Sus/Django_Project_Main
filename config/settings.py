@@ -4,6 +4,9 @@ import os
 
 load_dotenv(override=True)
 
+email_user = os.environ.get("EMAIL_HOST_USER")
+email_password = os.environ.get("EMAIL_HOST_PASSWORD")
+
 FILE_CHARSET = 'UTF-8'
 FILE_CHARSET = 'UTF-8'
 DEFAULT_CHARSET = 'UTF-8'
@@ -138,11 +141,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'catalog:main'
 LOGOUT_REDIRECT_URL = 'catalog:main'
 
-
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = 2525
-EMAIL_HOST_USER = "asuspitsyn@mail.ru"
-EMAIL_HOST_PASSWORD = "AhObsZtKnV74ljHgTCNT"
+EMAIL_HOST_USER = email_user
+EMAIL_HOST_PASSWORD = email_password
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 

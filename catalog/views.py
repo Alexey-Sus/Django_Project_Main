@@ -1,10 +1,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.core.cache import cache
 from django.views.generic import DetailView, TemplateView, ListView, UpdateView, DeleteView, CreateView
 from catalog.models import Product
 from catalog.forms import ProductForm, ProductFormDelete, ProductFormModerator
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
+from catalog.services import ProdCatService
 
 # инициализируем переменную со списком стоп-слов, чтобы использовать ее при создании формы
 stop_words: list = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно',
@@ -19,6 +22,13 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     form_class = ProductForm
     template_name = 'product_details.html'
+
+    def get_queryset(self):
+        queryset = cache.get('product_detail_queryset')
+        if not queryset:
+            queryset = super().get_queryset()
+            cache.set('product_detail_queryset', queryset, 60 * 15)
+        return queryset
 
 
 class ProdDetFromBaseDetailView(LoginRequiredMixin, DetailView):
@@ -61,12 +71,6 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         kwargs['stop_words'] = stop_words  # передаем список stop_words в форму
         return kwargs
 
-    # def product_update(request, pk):
-    #     product = get_object_or_404(Product, pk=pk)
-    #     if request.method == 'POST':
-    #         product.is_published = request.POST.get('is_published') == 'on'  # Convert checkbox value to boolean
-    #         product.save()
-    #         return redirect('catalog:main')  # Redirect to catalog:main AFTER saving.
 
     def get_form_class(self):
         user = self.request.user
@@ -97,7 +101,7 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         else:
             raise PermissionDenied
 
-
+@method_decorator(cache_page(60 * 15), name='dispatch')
 # class ProductListView(ListView):
 class ProductListView(ListView):
     model = Product
@@ -122,3 +126,41 @@ class UpperMenuListView(LoginRequiredMixin, ListView):
     model = Product
     template_name = 'upper_menu_subtempl.html'
     context_object_name = 'products'
+
+#пишем новое представление (контроллер) для списка продуктов из заданной категории
+# class ProdFromCatListView(ListView):
+#     model = Product
+#     form_class = ProductForm
+#     template_name = 'prod_list_from_cat.html'
+#
+#     products = ProdCatService.get_products_from_category()  # забираем список прод. из из services.py
+#     context = {'products': products}
+#     context_object_name = 'products'
+#
+#     def get_queryset(self):
+#         return ProdCatService.get_products_from_category()
+
+
+class ProdFromCatListView(ListView):
+    '''Кэшируем список продуктов из одной категории - низкоуровневое кэширование.
+    Если кэша нет, достаем данные просто из БД.'''
+
+    model = Product
+    form_class = ProductForm
+    template_name = 'prod_list_from_cat.html'
+
+    products = ProdCatService.get_products_from_category()  # забираем список прод. из из services.py
+    context = {'products': products}
+    context_object_name = 'products'
+
+    def get_queryset(self):
+        queryset = cache.get('prod_cat_queryset')
+        if not queryset:
+            queryset = ProdCatService.get_products_from_category()
+            cache.set('prod_cat_queryset', queryset, 60 * 15)
+        return queryset
+
+
+
+
+

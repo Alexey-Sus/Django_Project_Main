@@ -2,7 +2,7 @@ from django.urls import path
 from catalog.apps import NewappConfig
 from django.conf import settings
 from django.conf.urls.static import static
-from catalog.views import (ContactDetailsTemplateView, HomeTemplateView, ProductDetailView, ProdDetFromBaseDetailView,
+from catalog.views import (ContactDetailsTemplateView, ProductDetailView, ProdDetFromBaseDetailView,
                            ProductListView, UpperMenuListView, ProdDetFromBaseCreateView, ProductUpdateView,
                            ProductDeleteView)
 
@@ -13,7 +13,6 @@ app_name = 'catalog'
 
 urlpatterns = [
     path('contacts/', ContactDetailsTemplateView.as_view(), name='contact_details'),
-    path('home/', HomeTemplateView.as_view(), name='home'),
     path('product_details/<int:pk>/', ProductDetailView.as_view(), name='product_details'),
     path('prod_det_from_base/<int:pk>/', ProdDetFromBaseDetailView.as_view(), name='prod_det_from_base'),
     path('main/', ProductListView.as_view(), name='main'),

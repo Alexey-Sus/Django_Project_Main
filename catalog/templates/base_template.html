@@ -241,7 +241,12 @@
             <div class="col-lg-6 col-md-8 mx-auto">
                 <h1 class="fw-light">Магазин "Всё для всего"</h1>
                 <p class="lead text-body-secondary">Здесь есть всё для всего и даже больше.</p>
+                <p class="lead text-body-secondary" style="font-size: 14px;">Здравствуйте, {{user}}!</p>
             </div>
+
+            <div style="text-align: center;">
+        <a class="btn btn-success mb-3" href="{% url 'catalog:prod_det_from_base_create' %}" role="button">Создать новый продукт</a>
+    </div>
         </div>
     </section>
 

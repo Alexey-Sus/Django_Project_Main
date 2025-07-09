@@ -21,6 +21,12 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    is_blocked = models.BooleanField(default=False)
+    is_news_manager = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.email
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'

@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 from users.models import User
 
@@ -7,6 +8,11 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
+
+
+# class UserBlockForm(forms.Form):
+#     user_id = forms.IntegerField(widget=forms.HiddenInput())
+#     is_blocked = forms.BooleanField(required=False, label='Blocked')
 
 
 # from django import forms

@@ -37,18 +37,3 @@ def email_verification(request, token):
     user.is_active = True
     user.save()
     return redirect(reverse('users:login'))
-
-
-    # def form_valid(self, form):
-    #     if form.is_valid():
-    #         logger.info("Form is valid")
-    #         user = form.save(commit=False)
-    #         user.set_password(form.cleaned_data['password1'])
-    #         user.save()
-    #         logger.info(f"User saved: {user.username}")
-    #         return super().form_valid(form)
-    #     else:
-    #         logger.error("Form is invalid")
-    #         logger.error(form.errors)
-    #         print(form.errors)
-    #         return super().form_invalid(form)

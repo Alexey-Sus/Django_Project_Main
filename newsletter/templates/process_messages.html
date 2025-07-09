@@ -1,0 +1,35 @@
+{% extends 'base_template_news.html' %}
+
+{% block content %}
+
+{% if messages %}
+<ol>
+    {% for message in messages %}
+    <div class="col">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-text">Тема: {{ message.subject }}</h3>
+                <p class="card-text">{{ message.message_body | truncatechars:50 }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+
+                        <a class="btn btn-primary" href="{% url 'newsletter:show_message' message.pk %}"
+                           role="button">Показать</a>
+                        <a class="btn btn-secondary" href="{% url 'newsletter:update_message' message.pk %}"
+                           role="button">Редактировать</a>
+                        <a class="btn btn-warning" href="{% url 'newsletter:delete_message' message.pk %}"
+                           role="button">Удалить</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</ol>
+{% else %}
+<p class="left-aligned">Сообщений ещё нет</p>
+
+
+{% endif %}
+{% endblock %}

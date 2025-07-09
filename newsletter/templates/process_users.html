@@ -1,0 +1,34 @@
+{% extends 'base_template_news.html' %}
+
+
+
+{% block content %}
+
+{% if users %}
+{% if user.is_news_manager %}
+<p class="left-aligned">Все подписчики сервиса:</p>
+<ol>
+    {% for user in users %}
+    <div class="col">
+
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endfor %}
+</ol>
+{% else %}
+<p class="left-aligned">У вас нет прав для просмотра списка пользователей</p>
+{% endif %}
+{% else %}
+<p class="left-aligned">Пользователей ещё нет</p>
+
+
+{% endif %}
+{% endblock %}

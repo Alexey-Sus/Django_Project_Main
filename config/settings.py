@@ -27,7 +27,6 @@ DEBUG = True if os.getenv('DEBUG') == 'True' else False
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -40,6 +39,7 @@ INSTALLED_APPS = [
     'catalog',
     'blog',
     'users',
+    'newsletter',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +92,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -111,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
@@ -123,13 +121,12 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
-    ]
+    os.path.join(BASE_DIR, 'static'),
+]
 
 STATIC_URL = '/static/'
 
@@ -148,7 +145,6 @@ EMAIL_HOST_PASSWORD = email_password
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 
-
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -161,4 +157,25 @@ if CACHE_ENABLED:
         }
     }
 
-
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'ERROR',
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',
+        },
+    },
+    'loggers': {
+        'newsletter.views': {
+            'handlers': ['console', 'file'],
+            'level': 'ERROR',
+    'propagate': True,
+            },
+        },
+    }

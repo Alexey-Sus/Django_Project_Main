@@ -1,0 +1,62 @@
+{% extends 'base_template_news.html' %}
+
+
+
+{% block content %}
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p>Статистика рассылок</p>
+            <ul>
+                <li>Всего рассылок: {{ total_mailers }}</li>
+                <li>Активных рассылок: {{ active_mailers }}</li>
+                <li>Уникальных получателей: {{ unique_recipients }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% if mailers %}
+<ol>
+    {% for mailer in mailers %}
+    {% if user == mailer.owner %}
+    <div class="col">
+        <p class="left-aligned">Ваши рассылки:</p>
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">{{ mailer.message | truncatechars:50 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="button-container" style="display: flex; flex-wrap: wrap; width: 100%;">
+                            <a class="btn btn-primary" href="{% url 'newsletter:show_mailer' mailer.pk %}"
+                               role="button" style="margin: 5px; white-space: nowrap;">Показать</a>
+
+                            {% if not user.is_news_manager %}
+                            <a class="btn btn-secondary" href="{% url 'newsletter:update_mailer' mailer.pk %}"
+                               role="button" style="margin: 5px; white-space: nowrap;">Редактировать</a>
+
+                            <a class="btn btn-success mb-3"
+                               href="{% url 'newsletter:send_mailers_on_demand' pk=mailer.pk %}" role="button"
+                               style="background-color: pink; margin: 5px; white-space: nowrap;">Отправить</a>
+
+                            <a class="btn btn-warning" href="{% url 'newsletter:delete_mailer' mailer.pk %}"
+                               role="button" style="margin: 5px; white-space: nowrap;">Удалить</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {% endif %}
+
+    {% endfor %}
+</ol>
+{% else %}
+<p class="left-aligned">Рассылок ещё нет</p>
+
+
+{% endif %}
+{% endblock %}

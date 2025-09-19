@@ -38,6 +38,8 @@ class Message(models.Model):
         verbose_name = "Сообщение"
         verbose_name_plural = "Сообщения"
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+
     def __str__(self):
         return self.subject[:20]
 
@@ -99,6 +101,7 @@ class SendTry(models.Model):
     number_of_success_tries = models.IntegerField(default=0)
     number_of_unsuccess_tries = models.IntegerField(default=0)
 
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Попытка рассылки"

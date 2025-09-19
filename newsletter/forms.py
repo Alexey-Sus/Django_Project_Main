@@ -1,5 +1,5 @@
 from django import forms
-from newsletter.models import Recipient, Message, Mailer
+from newsletter.models import Recipient, Message, Mailer, SendTry
 
 
 class RecipientForm(forms.ModelForm):
@@ -72,4 +72,11 @@ class MailerSendForm(forms.ModelForm):
     class Meta:
         model = Mailer
         fields = ['message']
+
+
+class SendTryForm(forms.ModelForm):
+    class Meta:
+        model = SendTry
+        fields = ['newsletter', 'status', 'server_reply']
+
 

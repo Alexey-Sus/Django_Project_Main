@@ -4,15 +4,17 @@ from django.contrib.auth import backends
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView, TemplateView
 from django.views.generic.edit import FormMixin
 from users.models import User
 
 from newsletter.models import Recipient, Message, Mailer, SendTry
 from newsletter.forms import (RecipientForm, RecipientFormDelete, MessageForm, MessageFormDelete, MailerForm,
-                              MailerDeleteForm, MailerFormManager)
+                              MailerDeleteForm, MailerFormManager, SendTryForm)
+from users.forms import UserForm
+
 import logging
 
 logger = logging.getLogger(__name__)
@@ -208,10 +210,16 @@ class MailerListView(ListView):
     context_object_name = 'mailers'
 
     def get_queryset(self):
-        if not self.request.user.is_news_manager:
-            return Mailer.objects.filter(is_enabled=True)
+
+        if self.request.user.is_authenticated:
+
+            if not self.request.user.is_news_manager:
+                return Mailer.objects.filter(is_enabled=True)
+            else:
+                return Mailer.objects.all()
         else:
-            return Mailer.objects.all()
+            return Mailer.objects.filter(is_enabled=False)
+
 
     def get_form_class(self):
         user = self.request.user
@@ -261,9 +269,67 @@ class MailerUpdateView(UpdateView):
     template_name = 'update_mailer.html'
     success_url = reverse_lazy('newsletter:process_mailers')
 
+
+# блок контроллеров для работы с пользователями (CRUD)
 class UserListView(ListView):
     model = User
     # form_class = UserForm
     template_name = 'process_users.html'
     context_object_name = 'users'
+
+
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'update_user.html'
+    success_url = reverse_lazy('newsletter:process_users')
+
+
+class UserDetailView(DetailView):
+    model = User
+    template_name = 'show_user.html'
+
+
+#прописываем контроллер для вывода попыток рассылок
+class MailerTriesView(LoginRequiredMixin, ListView):
+    model = SendTry
+    template_name = 'show_mailer_tries.html'
+    context_object_name = 'mailer__send_tries'
+    login_url = '/users/login/'
+
+def get_queryset(self):
+    user = self.request.user
+
+    if not user.is_authenticated:
+        return redirect('login')
+
+    elif user.is_news_manager:
+        return SendTry.object.all()
+
+    else:
+        return SendTry.objects.all()
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    send_tries = SendTry.objects.filter(owner=self.request.user)
+    context['total_send_tries'] = send_tries.count()
+    context['failed_send_tries'] = send_tries.filter(status='failed').count()
+    context['succeeded_send_tries'] = send_tries.filter(status='success').count()
+    return context
+
+class MainPageView(TemplateView):
+    template_name = 'main.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        mailers = Mailer.objects.all()
+        context['total_mailers'] = mailers.count()
+        context['active_mailers'] = mailers.filter(status='launched').count()
+        context['unique_recipients'] = Recipient.objects.values('email').distinct().count()
+        return context
+
+
+
+
+
 

@@ -7,14 +7,12 @@ class User(AbstractUser):
 
     email = models.EmailField(unique=True, verbose_name='Email')
 
-    phone_number = models.CharField(max_length=35, verbose_name='Номер телефона', blank=True, null=True,
-                                    help_text='Введите номер телефона')
+    phone_number = models.CharField(max_length=35, verbose_name='Номер телефона', blank=True, null=True,)
 
     avatar = models.ImageField(upload_to='users/avatars/', verbose_name='Картинка', blank=True, null=True,
                                help_text='Загрузите аватар')
 
-    user_country = models.CharField(max_length=50, verbose_name='Страна вашего проживания',
-                                    help_text='Введите название страны')
+    user_country = models.CharField(max_length=50, verbose_name='Страна проживания пользователя')
 
     token = models.CharField(max_length=100, verbose_name='Token', blank=True, null=True)
 

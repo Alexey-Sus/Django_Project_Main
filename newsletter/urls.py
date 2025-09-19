@@ -6,8 +6,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 from newsletter.views import (RecipientListView, RecipientCreateView, RecipientDetailView, RecipientUpdateView,
                               RecipientDeleteView, SendMailer, MailerListView, MailerDetailView, MailerCreateView,
-                              MailerDeleteView, MailerUpdateView, UserListView)
-from newsletter.views import MessageListView, MessageCreateView, MessageDetailView, MessageDeleteView, MessageUpdateView
+                              MailerDeleteView, MailerUpdateView, UserListView, UserDetailView, UserUpdateView,
+                              MessageListView, MessageCreateView, MessageDetailView, MessageDeleteView,
+                              MessageUpdateView, MailerTriesView, MainPageView)
 
 app_name = NewappConfig.name
 
@@ -34,6 +35,10 @@ urlpatterns = [
     path('update_mailer/<int:pk>/', MailerUpdateView.as_view(), name='update_mailer'),
 
     path('process_users/', UserListView.as_view(), name='process_users'),
+    path('show_user/<int:pk>/', UserDetailView.as_view(), name='show_user'),
+    path('update_user/<int:pk>/', UserUpdateView.as_view(), name='update_user'),
+
+    path('show_mailer_tries/', MailerTriesView.as_view(), name='show_mailer_tries'),
 ]
 
 if settings.DEBUG:

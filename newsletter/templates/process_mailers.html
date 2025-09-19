@@ -18,7 +18,9 @@
 
 {% if mailers %}
 <ol>
+
     {% for mailer in mailers %}
+
     {% if user == mailer.owner %}
     <div class="col">
         <p class="left-aligned">Ваши рассылки:</p>
@@ -31,7 +33,7 @@
                             <a class="btn btn-primary" href="{% url 'newsletter:show_mailer' mailer.pk %}"
                                role="button" style="margin: 5px; white-space: nowrap;">Показать</a>
 
-                            {% if not user.is_news_manager %}
+                            {% if not request.user.is_news_manager %}
                             <a class="btn btn-secondary" href="{% url 'newsletter:update_mailer' mailer.pk %}"
                                role="button" style="margin: 5px; white-space: nowrap;">Редактировать</a>
 
@@ -42,6 +44,7 @@
                             <a class="btn btn-warning" href="{% url 'newsletter:delete_mailer' mailer.pk %}"
                                role="button" style="margin: 5px; white-space: nowrap;">Удалить</a>
                             {% endif %}
+
 
                         </div>
                     </div>

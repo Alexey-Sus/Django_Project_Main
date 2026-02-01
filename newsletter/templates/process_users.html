@@ -1,0 +1,45 @@
+{% extends 'base_template_news.html' %}
+
+
+{% block content %}
+
+{% if users %}
+{% if user.is_news_manager %}
+<p class="left-aligned">Все пользователи сервиса:</p>
+<ol>
+    {% for user in users %}
+    <div class="col">
+
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">{{ user.email }}</p>
+
+                    {% if user.phone_number %}
+                    <p class="card-text">{{ user.phone_number }}</p>
+                    {% else %}
+                    <p class="card-text">Номер телефона не указан</p>
+                    {% endif %}
+
+                    <a class="btn btn-primary" href="{% url 'newsletter:show_user' user.pk %}"
+                       role="button">Показать</a>
+
+                    <a class="btn btn-secondary" href="{% url 'newsletter:update_user' user.pk %}"
+                       role="button">Редактировать</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endfor %}
+</ol>
+{% else %}
+<p class="left-aligned">У вас нет прав для просмотра списка пользователей</p>
+{% endif %}
+{% else %}
+<p class="left-aligned">Пользователей ещё нет</p>
+
+
+{% endif %}
+{% endblock %}

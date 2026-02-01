@@ -102,7 +102,6 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
             raise PermissionDenied
 
 @method_decorator(cache_page(60 * 15), name='dispatch')
-# class ProductListView(ListView):
 class ProductListView(ListView):
     model = Product
     form_class = ProductForm

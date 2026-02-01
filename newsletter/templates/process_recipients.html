@@ -1,0 +1,43 @@
+{% extends 'base_template_news.html' %}
+
+{% block content %}
+
+{% if recipients %}
+<ol>
+    {% for recipient in recipients %}
+    {% if user == recipient.owner %}
+    <div class="col">
+        <p class="left-aligned">Ваши подписчики:</p>
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-text">email: {{ recipient.email }}</h3>
+                <p class="card-text">ФИО: {{ recipient.full_name }}</p>
+                <p class="card-text">Комментарий: {{ recipient.comment | truncatechars:50 }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+
+                        <a class="btn btn-primary" href="{% url 'newsletter:show_recipient' recipient.pk %}"
+                           role="button">Показать</a>
+
+                        {% if not user.is_news_manager %}
+                        <a class="btn btn-secondary" href="{% url 'newsletter:update_recipient' recipient.pk %}"
+                           role="button">Редактировать</a>
+
+                        <a class="btn btn-warning" href="{% url 'newsletter:delete_recipient' recipient.pk %}"
+                           role="button">Удалить</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</ol>
+{% else %}
+<p class="left-aligned">Подписчиков ещё нет</p>
+
+
+{% endif %}
+{% endblock %}

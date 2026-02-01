@@ -58,8 +58,6 @@ class Product(models.Model):
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
-    # def __str__(self):
-    #     return self.name
 
     class Meta:
         verbose_name = "Продукт"

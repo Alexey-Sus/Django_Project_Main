@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
 
 from users.models import User
 
@@ -7,6 +8,28 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2')
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email', 'phone_number', 'is_blocked', 'is_news_manager', 'user_country')
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+
+        # настройка атрибутов виджета для полей формы
+        self.fields['email'].widget.attrs.update(
+            {'class': 'form-control', 'placeholder': 'Введите email пользователя'})
+
+        self.fields['phone_number'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Укажите телефон'})
+
+        self.fields['user_country'].widget.attrs.update({'class': 'form-control', 'placeholder': 'Введите страну'})
+
+
+# class UserBlockForm(forms.Form):
+#     user_id = forms.IntegerField(widget=forms.HiddenInput())
+#     is_blocked = forms.BooleanField(required=False, label='Blocked')
 
 
 # from django import forms

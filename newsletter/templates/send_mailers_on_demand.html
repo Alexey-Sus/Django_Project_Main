@@ -1,0 +1,19 @@
+{% extends 'base_template_news.html' %}
+
+{% block content %}
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p>Рассылка</p>
+            <p class="card-text">{{ mailer.message }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <form method="post" action="{% url 'newsletter:send_mailers_on_demand' pk=mailer.pk %}">
+                    {% csrf_token %}
+                    <button class="btn btn-secondary" type="submit" role="button">Отправить</button>
+                    <a class="btn btn-primary" href="{% url 'newsletter:process_mailers' %}" role="button">К списку рассылок</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

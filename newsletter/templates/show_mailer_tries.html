@@ -1,0 +1,43 @@
+{% extends 'base_template_news.html' %}
+
+
+
+{% block content %}
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p>Статистика попыток рассылок</p>
+            <ul>
+                <li>Всего попыток рассылок: {{ total_send_tries }}</li>
+                <li>Успешных рассылок: {{ succeeded_send_tries }}</li>
+                <li>Безуспешных рассылок: {{ failed_send_tries }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% if mailer_send_tries %}
+<ol>
+
+    {% for send_try in mailer_send_tries %}
+
+    <div class="col">
+        <p class="left-aligned">Попытки ваших рассылок:</p>
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">{{ send_try.newsletter | truncatechars:50 }}</p>
+                    <p class="card-text">Статус рассылки: {{ send_try.status }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {% endfor %}
+</ol>
+{% else %}
+<p class="left-aligned">Ваших рассылок ещё нет</p>
+
+{% endif %}
+{% endblock %}

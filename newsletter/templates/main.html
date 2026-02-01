@@ -1,0 +1,18 @@
+{% extends 'base_template_news.html' %}
+
+
+
+{% block content %}
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p>Статистика рассылок</p>
+            <ul>
+                <li>Всего рассылок: {{ total_mailers }}</li>
+                <li>Активных рассылок: {{ active_mailers }}</li>
+                <li>Уникальных получателей: {{ unique_recipients }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
